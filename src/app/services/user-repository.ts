@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, EMPTY, throwError } from 'rxjs';
-import { map, delay } from 'rxjs/operators';
+import { map, delay } from 'rxjs/operators'; //rxjs map function not used here.
 
 @Injectable()
 export class UserRepositoryService {
