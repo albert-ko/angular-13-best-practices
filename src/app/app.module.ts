@@ -10,7 +10,7 @@ import { CoursesComponent } from "./components/courses";
 import { RegisterComponent } from "./components/sign-in";
 import { SignInComponent } from "./components/sign-in";
 import { LoadingComponent } from "./components/loading-spinner";
-import { DataRepositoryService } from "./services/data-repository"
+import { UserRepositoryService } from "./services/user-repository"
 import { AccountMenuComponent } from "./components/account-menu";
 
 @NgModule({
@@ -29,7 +29,7 @@ import { AccountMenuComponent } from "./components/account-menu";
     LoadingComponent,
     AccountMenuComponent
   ],
-  providers: [ DataRepositoryService ],
+  providers: [ UserRepositoryService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

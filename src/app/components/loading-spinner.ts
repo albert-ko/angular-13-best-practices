@@ -6,5 +6,5 @@ import {Component} from '@angular/core'
   inputs: ['loading']
 })
 export class LoadingComponent {
-  loading:boolean
+  loading:boolean | undefined
 }

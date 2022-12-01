@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 
-import { DataRepositoryService } from "../services/data-repository"
+import { UserRepositoryService } from "../services/user-repository"
 
 @Component({
   styleUrls: ['../styles/catalog.css'],
   templateUrl: '../templates/catalog.html'
 })
 export class CoursesComponent {
-  classes:any[];
-  visibleClasses:any[];
+  classes: any[] = [];
+  visibleClasses: any[] = [];
 
-  constructor(public dataRepository:DataRepositoryService) {}
+  constructor(public dataRepository:UserRepositoryService) {}
 
   ngOnInit() {
     this.dataRepository.getCatalog()
       .subscribe(classes => { this.classes = classes; this.applyFilter('')});
   }
 
-  enroll(classToEnroll) {
+  enroll(classToEnroll: { processing: boolean; classId: string; enrolled: boolean; }) {
     classToEnroll.processing = true;
     this.dataRepository.enroll(classToEnroll.classId)
       .subscribe(
@@ -27,7 +27,7 @@ export class CoursesComponent {
       );
   }
 
-  drop(classToDrop) {
+  drop(classToDrop: { processing: boolean; classId: string; enrolled: boolean; }) {
     classToDrop.processing = true;
     this.dataRepository.drop(classToDrop.classId)
       .subscribe(
@@ -37,7 +37,7 @@ export class CoursesComponent {
       );
   }
 
-  applyFilter(filter) {
+  applyFilter(filter:string) {
     if (!filter)
       return this.visibleClasses = this.classes;
 

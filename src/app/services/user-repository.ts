@@ -3,7 +3,7 @@ import { Observable, Subject, EMPTY, throwError } from 'rxjs';
 import { map, delay } from 'rxjs/operators';
 
 @Injectable()
-export class DataRepositoryService {
+export class UserRepositoryService {
   currentUser:any;
 
   constructor() {}
@@ -21,14 +21,14 @@ export class DataRepositoryService {
     return subject;
   }
 
-  saveUser(user): Observable<any> {
-    user.classes = user.classes || [];
-    this.currentUser = user;
+  saveUser(user: { classes: never[]; }): Observable<any> {
+    const classes = user.classes || [];
+    this.currentUser = {...user, classes: [...classes] };
 
     return EMPTY.pipe(delay(1000));
   }
 
-  enroll(classId): Observable<any> {
+  enroll(classId: string): Observable<any> {
     if (!this.currentUser)
       return throwError(() => new Error('User not signed in'));
 
@@ -40,19 +40,19 @@ export class DataRepositoryService {
     return EMPTY.pipe(delay(1000));
   }
 
-  drop(classId): Observable<any> {
+  drop(classId: string): Observable<any> {
     if (!this.currentUser)
       return throwError(() => new Error('User not signed in'));
 
     if (!this.currentUser.classes.includes(classId))
       return throwError(() => new Error('Not enrolled'));
 
-    this.currentUser.classes = this.currentUser.classes.filter(c => c !== classId);
+    this.currentUser.classes = this.currentUser.classes.filter((c: string) => c !== classId);
 
     return EMPTY.pipe(delay(3000));
   }
 
-  signIn(credentials): Observable<any> {
+  signIn(credentials:any): Observable<any> {
     //Never, ever check credentials in client-side code.
     //This code is only here to supply a fake endpoint for signing in.
     if (credentials.email !== 'me@whitebeards.edu' || credentials.password !== 'super-secret')

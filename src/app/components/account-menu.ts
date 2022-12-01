@@ -17,9 +17,9 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
     </div>`
 })
 export class AccountMenuComponent {
-  @Input() user;
+  @Input() user!: any;
   @Output() signedOut:EventEmitter<any> = new EventEmitter<any>();
-  showMenu:boolean;
+  showMenu:boolean = false;
 
   signOut() {
     this.showMenu = false;
